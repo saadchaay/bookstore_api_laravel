@@ -16,7 +16,7 @@ class AuthorsResource extends JsonResource
     {
         return [
             'id'=> (string)$this->id,
-            'type'=> 'Authors',
+            'type'=> 'Author',
             'attributes'=> [
                 'name' => $this->name,
                 'created_at' => $this->created_at,
