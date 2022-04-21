@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
-use App\Http\Requests\StoreAuthorRequest;
-use App\Http\Requests\UpdateAuthorRequest;
-use http\Env\Response;
+use Illuminate\Http\Request;
+use App\Http\Resources\AuthorsResource;
+use App\Http\Requests\AuthorsRequest;
 
 class AuthorsController extends Controller
 {
@@ -16,7 +16,7 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-        //
+        return AuthorsResource::collection(Author::all());
     }
 
     /**
@@ -32,12 +32,16 @@ class AuthorsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreAuthorRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAuthorRequest $request)
+    public function store(Request $request)
     {
-        //
+        $faker = \Faker\Factory::create(1);
+        $author = Author::create([
+            'name' => $faker->name
+        ]);
+        return new AuthorsResource($author);
     }
 
     /**
@@ -48,17 +52,7 @@ class AuthorsController extends Controller
      */
     public function show(Author $author)
     {
-        return response()->json([
-            'data' => [
-                'id'=> (string)$author->id,
-                'type'=> 'Author',
-                'attributes'=> [
-                    'name' => $author->name,
-                    'created_at' => $author->created_at,
-                    'updated_at' => $author->updated_at
-                ]
-            ]
-        ]);
+        return new AuthorsResource($author);
     }
 
     /**
