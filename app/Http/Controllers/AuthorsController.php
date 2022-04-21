@@ -35,7 +35,7 @@ class AuthorsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AuthorsRequest $request)
     {
         $faker = \Faker\Factory::create(1);
         $author = Author::create([
