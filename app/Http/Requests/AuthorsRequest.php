@@ -13,7 +13,7 @@ class AuthorsRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class AuthorsRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|unique:authors|max:255'
         ];
     }
 }
