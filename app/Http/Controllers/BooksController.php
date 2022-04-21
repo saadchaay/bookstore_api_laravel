@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BooksResource;
 use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
@@ -15,7 +16,7 @@ class BooksController extends Controller
      */
     public function index()
     {
-        return 'all books';
+        return BooksResource::collection(Book::all());
     }
 
     /**
