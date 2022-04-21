@@ -73,9 +73,12 @@ class AuthorsController extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAuthorRequest $request, Author $author)
+    public function update(Request $request, Author $author)
     {
-        //
+        $author->update([
+            'name'=> $request->input('name')
+        ]);
+        return new AuthorsResource($author);
     }
 
     /**
@@ -86,6 +89,7 @@ class AuthorsController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
+        return response(null, 204);
     }
 }
