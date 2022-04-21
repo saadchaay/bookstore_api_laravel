@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\BooksResource;
 use App\Models\Book;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Http\Requests\BooksRequest;
 
@@ -57,7 +58,9 @@ class BooksController extends Controller
     public function show(Book $book)
     {
         return new BooksResource($book);
+//        return $book->author;
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -77,9 +80,14 @@ class BooksController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBookRequest $request, Book $book)
+    public function update(Request $request, Book $book)
     {
-        //
+        $book->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'publication_year' => $request->input('publication_year')
+        ]);
+        return new BooksResource($book);
     }
 
     /**
@@ -90,6 +98,7 @@ class BooksController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return response(null, 204);
     }
 }
